@@ -37,7 +37,7 @@ class Markov(object):
 
         generated_text = ' '.join(generated)
 
-        print(generated_text)
+        return generated_text
 
     def _construct_corpus(self, words, word_grouping_length):
         def generate_word_group(current_word, index):
