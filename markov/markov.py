@@ -64,3 +64,14 @@ class Markov(object):
             corpus[tuple(word_group)].append(word_group_value)
 
         return corpus
+
+    def _open_files(self, file_path):
+        try:
+            with open(file_path, 'r') as file:
+                file_contents = file.read()
+        except FileNotFoundError:
+            raise MarkovInputError(
+                'Couldn\'t find the file {}'.format(file_path)
+            )
+        else:
+            return file_contents
