@@ -5,10 +5,19 @@ class MarkovInputError(Exception):
     pass
 
 class Markov(object):
-    def __init__(self, file_path):
-        with open(file_path, 'r') as file:
-            self.text = file.read()
-        self.words = self.text.split()
+    def __init__(self, text='', files=[]):
+        if not text and not files:
+            raise MarkovInputError('Please supply input text or a file path.')
+        if files:
+            if not isinstance(files, (list)):
+                files = [files]
+            file_text = [
+                self._open_files(file_path)
+                for file_path in files
+            ]
+            text = ' '.join(file_text)
+
+        self.words = text.split()
 
     def generate_text(self, finished_length, word_key_count=2):
         corpus = self._construct_corpus(self.words, word_key_count)
