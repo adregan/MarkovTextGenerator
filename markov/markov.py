@@ -19,7 +19,7 @@ class Markov(object):
 
         self.words = text.split()
 
-    def generate_text(self, finished_length, word_key_count=2):
+    def generate_text(self, finished_length=50, word_key_count=2):
         corpus = self._construct_corpus(self.words, word_key_count)
         seed_index = random.randint(0, len(self.words))
         seed_word = self.words[seed_index]
