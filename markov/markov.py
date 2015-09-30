@@ -1,6 +1,9 @@
 from collections import defaultdict
 import random
 
+class MarkovInputError(Exception):
+    pass
+
 class Markov(object):
     def __init__(self, file_path):
         with open(file_path, 'r') as file:
