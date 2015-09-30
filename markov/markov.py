@@ -19,18 +19,18 @@ class Markov(object):
 
         self.words = text.split()
 
-    def generate_text(self, finished_length=50, word_key_count=2):
-        corpus = self._construct_corpus(self.words, word_key_count)
+    def generate_text(self, output_length=50, word_grouping_length=2):
+        corpus = self._construct_corpus(self.words, word_grouping_length)
         seed_index = random.randint(0, len(self.words))
         seed_word = self.words[seed_index]
 
         seed_words = [
             self.words[seed_index + i]
-            for i in range(0, word_key_count)
+            for i in range(0, word_grouping_length)
         ]
 
         generated = []
-        for _ in range(finished_length):
+        for _ in range(output_length):
             next_word = random.choice(corpus[tuple(seed_words)])
             seed_words.append(next_word)
             generated.append(seed_words.pop(0))
@@ -39,17 +39,17 @@ class Markov(object):
 
         print(generated_text)
 
-    def _construct_corpus(self, words, word_key_count):
+    def _construct_corpus(self, words, word_grouping_length):
         def generate_word_group(current_word, index):
             additional_keys = [
                 words[index + (i + 1)] 
-                for i in range(word_key_count)
+                for i in range(word_grouping_length)
             ]
             return [current_word] + additional_keys
 
         final_words_indexes = [
             len(words) - (i + 1)
-            for i in range(0, word_key_count)
+            for i in range(0, word_grouping_length)
         ]
 
         word_groups = [
