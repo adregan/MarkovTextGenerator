@@ -17,11 +17,11 @@ class Markov(object):
             for i in range(0, word_key_count)
         ]
 
-        #TODO BROKEN with more than 1 word_key_count
         generated = []
         for _ in range(finished_length):
-            generated.append(seed_words[0])
-            seed_words = [random.choice(corpus[tuple(seed_words)])]
+            next_word = random.choice(corpus[tuple(seed_words)])
+            seed_words.append(next_word)
+            generated.append(seed_words.pop(0))
 
         generated_text = ' '.join(generated)
 
